@@ -30,34 +30,17 @@ createLogIn = Blueprint("login",__name__)
 @indexRoute.route("/api/users")
 def index():
 
-	# users = []
-	# cursor = collection.find({})
-	# for document in cursor:
-	# 	users.append({"_id":JSONEncoder().encode(document["_id"]),
-	# 	 "username": document["username"],
-	# 	 "password": document["password"],
-	# 	 "firstName": document["firstName"],
-	# 	 "lastName": document["lastName"],
-	# 	 "email": document["email"]})
-	chats = [
-  {
-    "username": "yuval",
-    "firstName": "yuval",
-    "lastName": "0503075889",
-    "password":"123",
-    "email":"yuv@gmail.com"
-    
-  },
-  {
-    "username": "huhuhbhu",
-    "firstName": "uhunu",
-    "lastName": "0503075889",
-    "password":"uinu",
-    "email":"yuv4@gmail.com"
-    
-  }
-]
-	return jsonify(data=chats)
+	users = []
+	cursor = collection.find({})
+	for document in cursor:
+		users.append({"_id":JSONEncoder().encode(document["_id"]),
+		 "username": document["username"],
+		 "password": document["password"],
+		 "firstName": document["firstName"],
+		 "lastName": document["lastName"],
+		 "email": document["email"]})
+	
+	return jsonify(data=users)
 
 
 
@@ -72,10 +55,6 @@ def login():
 	cursor = collection.find({})
 	for document in cursor:
 		users.append({"_id":JSONEncoder().encode(document["_id"]),"username": document["username"], "password": document["password"]})
-
-	# user = [x for x in users if x.username == username][0]
-	# if user and user.password == password:
-	# 	return user
 
 	for user in users:
 		if user["username"] == username and user["password"] == password:
@@ -105,14 +84,9 @@ def create():
 	    "email":email,
 	}
 
-	# newe = collection.insert_one(user)
-	# print(newe)
+	collection.insert_one(user)
 
 	return jsonify(data = user)
-
-# data = request.get_json(silent=True)
-# 	username = data['username']
-# 	password = data['password']
 
 
 
